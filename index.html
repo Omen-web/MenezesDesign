@@ -101,7 +101,7 @@
       z-index: 1;
     }
 
-    /* Mobile Styles */
+    /* Mobile Styles Smartphone */
     @media (max-width: 768px) {
       body {
         flex-direction: column; /* Stack the content vertically */
@@ -146,6 +146,26 @@
         display: none; /* Hide filters on mobile */
       }
     }
+
+    /* Tablet Styles (768px to 991px) */
+    @media (min-width: 768px) and (max-width: 991px) {
+      body {
+        flex-direction: column; /* Stack content vertically on tablet */
+      }
+
+      .sidebar {
+        display: none; /* Hide sidebar on tablet */
+      }
+
+      .main {
+        padding-top: 12%; /* Adjust for the navbar height */
+      }
+
+      .project-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns layout on tablet */
+      }
+    }
+
   </style>
 </head>
 <body>
