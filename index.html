@@ -11,6 +11,7 @@
       margin: 0;
       font-family: 'Figtree', sans-serif;
       display: flex;
+      flex-direction: row; /* Default to horizontal layout for desktop */
       height: 100vh;
       color: #333;
     }
@@ -44,21 +45,6 @@
     .project-list li:hover,
     .project-list li.highlighted {
       background: #eaeaea;
-    }
-
-    .project-title {
-      font-size: 1.5rem;
-      margin-top: 0;
-    }
-
-    .filters {
-      margin-bottom: 1rem;
-    }
-
-    .filters button {
-      margin-right: 0.5rem;
-      margin-top: 0.5rem;
-      cursor: pointer;
     }
 
     .nav-section {
@@ -115,25 +101,68 @@
       z-index: 1;
     }
 
+    /* Mobile Styles */
     @media (max-width: 768px) {
       body {
-        flex-direction: column;
+        flex-direction: column; /* Stack the content vertically */
       }
+
       .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
+        display: none; /* Hide the sidebar on mobile */
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 10%; /* Make navbar take up 10% height */
+        background-color: #f5f5f5;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+      }
+
+      .navbar h3 {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .navbar h3:hover {
+        text-decoration: underline;
+      }
+
+      .main {
+        padding-top: 12%; /* Adjust for the navbar height */
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr; /* Single column layout on mobile */
+      }
+
+      .filters {
+        display: none; /* Hide filters on mobile */
       }
     }
   </style>
 </head>
 <body>
+  <!-- Mobile Navbar -->
+  <div class="navbar">
+    <h3 onclick="navigate('about')">About</h3>
+    <h3 onclick="navigate('contact')">Contact</h3>
+    <h3 onclick="navigate('archive')">Project Archive</h3>
+  </div>
+
+  <!-- Sidebar (Hidden on Mobile) -->
   <div class="sidebar">
     <div class="name-header">
-		<h2>Olivia Menezes</h2>
-		<h4>Designer</h4>
-	</div>
-	
+      <h2>Olivia Menezes</h2>
+      <h4>Designer</h4>
+    </div>
+    
     <div class="nav-section">
       <h3 onclick="navigate('about')">About</h3>
       <h3 onclick="navigate('contact')">Contact</h3>
