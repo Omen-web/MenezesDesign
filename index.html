@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Archive</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Figtree', sans-serif;
+      display: flex;
+      height: 100vh;
+      color: #333;
+    }
+
+    .sidebar {
+      width: 33%;
+      background: #f5f5f5;
+      border-right: 1px solid #ddd;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .project-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .project-list li {
+      cursor: pointer;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+      transition: background 0.3s;
+    }
+
+    .project-list li:hover,
+    .project-list li.highlighted {
+      background: #eaeaea;
+    }
+
+    .project-title {
+      font-size: 1.5rem;
+      margin-top: 0;
+    }
+
+    .filters {
+      margin-bottom: 1rem;
+    }
+
+    .filters button {
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+
+    .nav-section {
+      margin-bottom: 1rem;
+    }
+
+    .nav-section h3 {
+      margin: 0.5rem 0;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .nav-section h3:hover {
+      text-decoration: underline;
+    }
+
+    h2.sidebar-title {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      text-transform: none;
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+      cursor: pointer;
+    }
+
+    .name-header {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+      height: auto;
+      max-height: 90vh;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .project-grid img {
+      width: 90%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 5px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .project-grid img.highlighted-image {
+      transform: scale(1.1);
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="name-header">
+		<h2>Olivia Menezes</h2>
+		<h4>Designer</h4>
+	</div>
+	
+    <div class="nav-section">
+      <h3 onclick="navigate('about')">About</h3>
+      <h3 onclick="navigate('contact')">Contact</h3>
+    </div>
+
+    <h2 class="sidebar-title" onclick="navigate('archive')">Project Archive</h2>
+
+    <div class="filters">
+      <strong>Filter by type:</strong><br />
+      <button onclick="filterProjects('all')">All</button>
+      <button onclick="filterProjects('artwork')">Artwork</button>
+      <button onclick="filterProjects('exhibition')">Exhibition</button>
+    </div>
+
+    <ul class="project-list" id="projectList"></ul>
+  </div>
+
+  <div class="main" id="projectDetail">
+    <p>Select a project to view details</p>
+  </div>
+
+  <script>
+    const projects = [
+      { title: "Robotic Mirror", year: "2024", type: "artwork", institution: "Media Lab", description: "A kinetic installation using mirrors and motors.", image: "assets/images/image1.jpg" },
+      { title: "Light Sculpture", year: "2023", type: "exhibition", institution: "Light Art Gallery", description: "An interactive light-based sculpture.", image: "assets/images/image2.jpg" },
+      { title: "Sound Sculpture", year: "2022", type: "artwork", institution: "Audio Works", description: "An experimental sound installation.", image: "assets/images/image3.jpg" },
+      { title: "Kinetic Painting", year: "2021", type: "artwork", institution: "Art Institute", description: "A painting that moves and changes shape.", image: "assets/images/image4.jpg" },
+      { title: "VR Exhibit", year: "2021", type: "exhibition", institution: "Virtual Worlds", description: "An immersive VR art exhibition.", image: "assets/images/image5.jpg" },
+      { title: "Digital Portraits", year: "2020", type: "artwork", institution: "Digital Gallery", description: "A series of digital portraits.", image: "assets/images/image6.jpg" },
+      { title: "Light and Shadows", year: "2020", type: "exhibition", institution: "Modern Art Museum", description: "A play of light and shadows in space.", image: "assets/images/image7.jpg" },
+      { title: "Interactive Landscape", year: "2019", type: "artwork", institution: "Art Lab", description: "A landscape that changes based on interaction.", image: "assets/images/image8.jpg" },
+      { title: "AR Sculpture", year: "2018", type: "exhibition", institution: "Gallery X", description: "A sculpture enhanced with augmented reality.", image: "assets/images/image9.jpg" },
+    ];
+
+    let filteredProjects = [...projects];
+
+    function renderList() {
+      const projectList = document.getElementById("projectList");
+      projectList.innerHTML = "";
+      filteredProjects.forEach((project, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <strong>${project.title}</strong><br />
+          ${project.institution} — ${project.type}, ${project.year}
+        `;
+        li.onmouseover = () => {
+          highlightGridImage(index);
+          li.classList.add("highlighted");
+        };
+        li.onmouseout = () => {
+          resetGridImage(index);
+          li.classList.remove("highlighted");
+        };
+        li.onclick = () => showProject(index);
+        projectList.appendChild(li);
+      });
+    }
+
+    function showProject(index) {
+      const project = filteredProjects[index];
+      const detail = document.getElementById("projectDetail");
+      detail.innerHTML = `
+        <h2 class="project-title">${project.title}</h2>
+        <p><strong>Institution:</strong> ${project.institution}</p>
+        <p><strong>Year:</strong> ${project.year}</p>
+        <p><strong>Type:</strong> ${project.type}</p>
+        <p>${project.description}</p>
+        <img src="${project.image}" style="max-width: 100%; height: auto; margin-top: 1rem;"/>
+      `;
+    }
+
+    function showProjectGrid() {
+      const detail = document.getElementById("projectDetail");
+      detail.innerHTML = `
+        <h2>Project Archive</h2>
+        <div class="project-grid" id="projectGrid">
+          ${filteredProjects.map((project, index) => `
+            <img src="${project.image}" alt="${project.title}" 
+              onmouseover="highlightListItem(${index})" 
+              onmouseout="resetListItem(${index})"
+              onclick="showProject(${index})" />
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function highlightGridImage(index) {
+      const gridImages = document.querySelectorAll('.project-grid img');
+      if (gridImages[index]) {
+        gridImages[index].classList.add('highlighted-image');
+      }
+    }
+
+    function resetGridImage(index) {
+      const gridImages = document.querySelectorAll('.project-grid img');
+      if (gridImages[index]) {
+        gridImages[index].classList.remove('highlighted-image');
+      }
+    }
+
+    function highlightListItem(index) {
+      const listItems = document.querySelectorAll('.project-list li');
+      if (listItems[index]) {
+        listItems[index].classList.add('highlighted');
+      }
+    }
+
+    function resetListItem(index) {
+      const listItems = document.querySelectorAll('.project-list li');
+      if (listItems[index]) {
+        listItems[index].classList.remove('highlighted');
+      }
+    }
+
+    function filterProjects(type) {
+      filteredProjects = type === 'all' ? [...projects] : projects.filter(p => p.type === type);
+      renderList();
+      showProjectGrid();
+    }
+
+    function navigate(section) {
+      if (section === 'about') {
+        document.getElementById("projectDetail").innerHTML = `
+          <h2>About</h2>
+          <p>This is a short description about the project archive or artist.</p>
+        `;
+      } else if (section === 'contact') {
+        document.getElementById("projectDetail").innerHTML = `
+          <h2>Contact</h2>
+          <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
+        `;
+      } else if (section === 'archive') {
+        filteredProjects = [...projects]; // reset filters
+        renderList();
+        showProjectGrid();
+      }
+    }
+
+    window.onload = () => {
+      renderList();
+      showProjectGrid();
+    };
+  </script>
+</body>
+</html>
