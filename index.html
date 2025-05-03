@@ -119,7 +119,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        height: 7%; /* Make navbar take up 7% height */
+        height: 6%; /* Make navbar take up 6% height */
         background-color: #f5f5f5;
         padding: 1rem;
         position: fixed;
@@ -139,7 +139,7 @@
       }
 
       .main {
-        padding-top: 12%; /* Adjust for the navbar height */
+        padding-top: 14%; /* Adjust for the navbar height */
       }
 
       .project-grid {
@@ -154,7 +154,7 @@
     /* Tablet Styles (768px to 991px) */
     @media (min-width: 769px) and (max-width: 991px) {
       body {
-        flex-direction: column; /* Stack content vertically on tablet */
+        flex-direction: row; /* Stack content horizontally on tablet */
       }
 
       .navbar {
@@ -168,9 +168,28 @@
         padding: 1rem;
         overflow-y: auto;
       }
+      
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-      .main {
-        padding-top: 12%; /* Adjust for the navbar height */
+    /* Tablet Styles Small Desktop (992px to 1024px) */
+    @media (min-width: 992px) and (max-width: 1024px) {
+      body {
+        flex-direction: row; /* Stack content horizontally on tablet */
+      }
+
+      .navbar {
+        display: none;
+      }
+
+      .sidebar {
+        width: 33%;
+        background: #f5f5f5;
+        border-right: 1px solid #ddd;
+        padding: 1rem;
+        overflow-y: auto;
       }
 
       .project-grid {
