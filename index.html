@@ -202,13 +202,9 @@
 <body>
   <!-- Mobile Navbar -->
   <div class="navbar">
-    <div class="name-header">
-      <h2>Olivia Menezes</h2>
-      <h4>Designer</h4>
-    </div>
-    <h3 onclick="navigate('about')">About</h3>
-    <h3 onclick="navigate('contact')">Contact</h3>
-    <h3 onclick="navigate('archive')">Project Archive</h3>
+    <h4 onclick="navigate('about')">About</h4>
+    <h4 onclick="navigate('contact')">Contact</h4>
+    <h4 onclick="navigate('archive')">Project Archive</h4>
   </div>
 
   <!-- Sidebar (Hidden on Mobile) -->
@@ -342,6 +338,7 @@
       if (section === 'about') {
         document.getElementById("projectDetail").innerHTML = `
           <h2>About</h2>
+          <img src="images/artist.jpg" alt="Artist portrait" />
           <p>This is a short description about the project archive or artist.</p>
         `;
       } else if (section === 'contact') {
