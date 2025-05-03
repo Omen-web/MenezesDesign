@@ -139,7 +139,7 @@
       }
 
       .main {
-        padding-top: 14%; /* Adjust for the navbar height */
+        padding-top: 20%; /* Adjust for the navbar height */
       }
 
       .project-grid {
@@ -174,8 +174,8 @@
       }
     }
 
-    /* Tablet Styles Small Desktop (992px to 1024px) */
-    @media (min-width: 992px) and (max-width: 1024px) {
+    /* Tablet Styles Small Desktop (992px to 1280px) */
+    @media (min-width: 992px) and (max-width: 1280px) {
       body {
         flex-direction: row; /* Stack content horizontally on tablet */
       }
@@ -202,6 +202,10 @@
 <body>
   <!-- Mobile Navbar -->
   <div class="navbar">
+    <div class="name-header">
+      <h2>Olivia Menezes</h2>
+      <h4>Designer</h4>
+    </div>
     <h3 onclick="navigate('about')">About</h3>
     <h3 onclick="navigate('contact')">Contact</h3>
     <h3 onclick="navigate('archive')">Project Archive</h3>
