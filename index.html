@@ -336,16 +336,12 @@
     }
 
     function navigate(section) {
-      if (section === 'about') {
+      if (section === 'contact') {
         document.getElementById("projectDetail").innerHTML = `
-          <h2>About</h2> 
-          <img src= "assets/images/artist.JPG" style="width: 90%; max-width: 600px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 5px;" />
-          <p>Hello, my name is Olivia. I am  a designer with a background in industrial and interaction design.</p>
-        `;
-      } else if (section === 'contact') {
-        document.getElementById("projectDetail").innerHTML = `
-          <h2>Contact</h2>
+          <h2>Contact</h2> 
           <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
+          <img src= "assets/images/headshot.png" style="width: 90%; max-width: 600px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 5px;" />
+          <p>Hello, my name is Olivia. I am a designer with a background in industrial and interaction design.</p>
         `;
       } else if (section === 'archive') {
         filteredProjects = [...projects]; // reset filters
@@ -361,3 +357,4 @@
   </script>
 </body>
 </html>
+
